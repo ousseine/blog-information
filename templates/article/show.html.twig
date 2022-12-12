@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>{{ article.title }}</h1>
+
+        <small>{{ article.summary | raw }}</small>
+
+        <p><a href="{{ path('app_category', {name: article.categories.name}) }}">{{ article.categories.name }}</a>  |  Date de publication : {{ article.publishedAt | format_datetime(locale='fr') }}</p>
+
+        <article>{{ article.content | raw }}</article>
+
+        <div class="form" style="margin-bottom: 30px">
+            <h4>Poster un commentaire</h4>
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            <button type="submit">Enregistrer</button>
+            {{ form_end(form) }}
+        </div>
+
+        <h3>{{ article.comments.count() > 1 ? article.comments.count() ~ " Commentaires" : article.comments.count() ~ " Commentaire" }}</h3>
+
+        {% for comment in article.comments | sort((a, b) => a.publishedAt <= b.publishedAt) %}
+            <div class="comment" style="margin-bottom: 20px">
+                <h6 style="margin: 10px 0">
+                    <span>{{ comment.name }}</span>&nbsp;&nbsp; | &nbsp;&nbsp;
+                    <span>Date de publication : {{ comment.publishedAt | format_datetime(locale='fr') }}</span>
+                </h6>
+                <small>{{ comment.message | raw }}</small>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
