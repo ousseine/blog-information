@@ -1,0 +1,24 @@
+<div class="categories mb-5">
+    <h3 class="mb-3 text-uppercase fs-5">Catégories</h3>
+
+    <ul class="list-group">
+        {% for c in categories %}
+        <li class="list-group-item">
+            <a class="text-decoration-none" href="{{ path('app_category', {name: c.name}) }}">{{ c.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="articles">
+    <h3 class="mb-3 text-uppercase fs-5">Dernier articles</h3>
+
+    <ul class="list-group">
+    {% for a in articles %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a class="text-decoration-none" href="{{ path('app_show', {slug: a.slug}) }}">{{ a.title }}</a>
+            <span class="badge bg-primary rounded-pill">14</span>
+        </li>
+    {% endfor %}
+    </ul>
+</div>

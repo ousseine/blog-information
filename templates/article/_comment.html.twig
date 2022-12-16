@@ -1,0 +1,28 @@
+{% if comment.parent == null %}
+    <div class="card bg-secondary p-2 mb-3">
+        <div class="comment text-white mb-3">
+            <h6 class="mb-3">
+                <strong class="text-uppercase fs-6">{{ comment.name }}</strong>&nbsp;&nbsp; | &nbsp;&nbsp;
+                <span class="text-primary text-uppercase font-monospace fs-6">Date de publication : {{ comment.publishedAt | format_datetime(locale='fr') }}</span>
+            </h6>
+            <div class="m-0 fst-italic">
+                <p><small>{{ comment.message | raw }}</small></p>
+                <a href="#" class="btn btn-sm btn-primary" data-reply data-id="{{ comment.id }}">répondre</a>
+            </div>
+        </div>
+
+        {% for reply in comment.replies %}
+            <div class="comment text-white ms-3">
+                <h6 class="mb-3">
+                    <strong class="text-uppercase fs-6">{{ reply.name }}</strong>&nbsp;&nbsp; | &nbsp;&nbsp;
+                    <span class="text-primary text-uppercase font-monospace fs-6">Date de publication : {{ reply.publishedAt | format_datetime(locale='fr') }}</span>
+                </h6>
+                <div class="m-0 fst-italic">
+                    <p><small>{{ reply.message | raw }}</small></p>
+                    <a href="#" class="btn btn-sm btn-primary" data-reply data-id="{{ comment.id }}">répondre</a>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

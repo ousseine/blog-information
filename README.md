@@ -31,6 +31,9 @@
 - content
 - published_at
 - category (liaison avec les catégories)
+- imageName
+- imageFile (vich uploader)
+- updated_at
 
 ### category
 - name
@@ -42,10 +45,22 @@
 - message
 - published_at
 
-### Demain matin : 12/12/22
-- sécuriser la partie admin
-- ajouter du bootstrap & bootswatch
-- créer un bloc partagé
-- ajouter une image à la une
+### user
+- email
+- role
+- password
+
+## Améliorations
+
+#### Date : 12/12/22
+- sécuriser la partie admin -> check
+- ajouter du bootstrap & bootswatch -> check
+- créer un bloc partagé -> check
+- ajouter une image à la une -> check
+
+#### Date : 13-14/12/22
+- recherche -> check
+- filtration (tri : knp paginator) -> check
+- commentaires imbriqués -> check
 
 
