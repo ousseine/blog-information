@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin : Liste des articles{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-uppercase fs-3 mb-4">{{ controller_name }}</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-dismissible alert-success p-2">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <span class="fst-italic">{{ message }}</span>
+        </div>
+    {% endfor %}
+
+    <a href="{{ path('app_admin_article_add') }}" class="btn btn-sm btn-primary">Ajouter un article</a>
+
+    <table class="table table-hover my-3">
+        <thead>
+        <tr>
+            <th style="text-align: start; border-bottom: 1px solid gray">{{ knp_pagination_sortable(articles, 'Titre', 'title') }}</th>
+            <th style="text-align: start; border-bottom: 1px solid gray">{{ knp_pagination_sortable(articles, 'Date', 'published_at') }}</th>
+            <th style="text-align: end; border-bottom: 1px solid gray">actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for a in articles %}
+            <tr>
+                <td>
+                    <a href="{{ path('app_admin_article_show', {slug: a.slug}) }}">{{ a.title }}</a>
+                </td>
+                <td>{{ a.publishedAt | format_datetime('short', 'none', locale='fr') }}</td>
+                <td class="d-flex justify-content-end">
+                    <a href="{{ path('app_admin_article_show', {slug: a.slug}) }}" class="btn btn-sm btn-info">show</a>&nbsp;&nbsp;
+                    {{ include('admin/article/_form_delete.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3">Aucun un article enregistrer !</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {{ knp_pagination_render(articles) }}
+    </div>
+</div>
+{% endblock %}

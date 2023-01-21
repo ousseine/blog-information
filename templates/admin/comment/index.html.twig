@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommentController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mb-4 text-uppercase fs-3">{{ controller_name }}</h1>
+
+    {% for c in comments %}
+        <div class="card mb-3 p-2">
+            <p>
+                <strong>{{ c.name }}</strong> |
+                <span class="text-primary text-uppercase font-monospace fs-6">Date de publication : {{ c.publishedAt | format_datetime(locale='fr') }}</span>
+            </p>
+
+            <div class="mb-3">
+                <small class="fst-italic">{{ c.message | raw }}</small>
+            </div>
+
+            {{ include('admin/comment/_form_delete.html.twig') }}
+        </div>
+    {% endfor %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(comments) }}
+    </div>
+</div>
+{% endblock %}

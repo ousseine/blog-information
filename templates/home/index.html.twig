@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil | Blog information{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-4 fs-3 text-uppercase">{{ controller_name }}</h1>
+
+    <div class="content row">
+        <article class="article col col-8">
+            {% for article in articles %}
+                <div class="card mb-3 p-3">
+                    <h4 class="mb-3 font-monospace fs-4 text-uppercase"><a href="{{ path('app_show', {slug: article.slug}) }}">{{ article.title }}</a></h4>
+                    <p class="my-2">
+                        <a href="{{ path('app_category', {name: article.categories.name}) }}" class="badge bg-success text-decoration-none p-1">
+                            <i class='bx bxs-purchase-tag'></i> {{ article.categories }}
+                        </a> |
+                        <span class="text-primary text-uppercase font-monospace fs-6">Date de publication : {{ article.publishedAt | format_datetime(locale='fr') }}</span>
+                    </p>
+                    <p class="fw-light"><small>{{ article.summary | raw }}</small></p>
+                </div>
+            {% else %}
+                <p>Aucun résultat trouvé !</p>
+            {% endfor %}
+
+            <div class="navigation">
+                {{ knp_pagination_render(articles) }}
+            </div>
+        </article>
+
+        <div class="sidebar col col-4">
+            {{ sidebar() }}
+        </div>
+    </div>
+</div>
+{% endblock %}

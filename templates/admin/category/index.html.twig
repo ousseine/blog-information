@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mb-4 text-uppercase fs-3">{{ controller_name }}</h1>
+
+    <a href="{{ path('app_admin_category_add') }}" class="btn btn-sm btn-primary">Ajouter une catégorie</a>
+
+    <table class="table table-hover my-3">
+        <thead>
+        <tr>
+            <th style="text-align: start; border-bottom: 1px solid gray">Nom</th>
+            <th style="text-align: end; border-bottom: 1px solid gray">actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in categories %}
+            <tr>
+                <td>{{ c.name }}</td>
+                <td style="text-align: end; display: flex; justify-content: flex-end">
+                    <a href="{{ path('app_admin_category_edit', {id: c.id}) }}" class="btn btn-sm btn-warning">edit</a>&nbsp;&nbsp;
+                    {{ include('admin/category/_form_delete.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="2">Aucune catégorie enregistrer !</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
